@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/honcho-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/honcho-{{ version }}.tar.gz
   sha256: af3815c03c634bf67d50f114253ea9fef72ecff26e4fd06b29234789ac5b8b2e
 
 build:
@@ -14,15 +14,15 @@ build:
   entry_points:
     - honcho=honcho.command:main
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
     - setuptools
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - colorama
 
 test:
@@ -33,6 +33,7 @@ test:
     - honcho --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/nickstenning/honcho
